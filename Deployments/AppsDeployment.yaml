@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: cicd
+spec:
+ replicas: 1
+ selector:
+   matchLabels:
+     app: cicd
+ strategy:
+   type: RollingUpdate
+ template:
+   metadata:
+     labels:
+       app: cicd
+   spec:
+     containers:
+     - image: '100.125.0.94:20202/cicd_actions/pong_pipeline:latest'
+       imagePullPolicy: Always
+       name: cicd
+     imagePullSecrets:
+       - name: default-secret
